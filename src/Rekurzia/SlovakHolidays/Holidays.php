@@ -18,7 +18,7 @@ class Holidays
 
     '08-29' => 'Výročie SNP',
 
-    '09-01' => 'Deň Ústavy Slovenskej republiky',
+    '<2024-09-01' => 'Deň Ústavy Slovenskej republiky',
     '09-15' => 'Sedembolestná Panna Mária',
 
     '11-01' => 'Sviatok všetkých svätých',
@@ -27,6 +27,8 @@ class Holidays
     '12-24' => 'Štedrý deň',
     '12-25' => 'Prvý sviatok vianočný',
     '12-26' => 'Druhý sviatok vianočný',
+
+    '=2018-10-30' => '100. výročie prijatia Deklarácie slovenského národa'
     ];
 
     /**
@@ -35,13 +37,6 @@ class Holidays
     private static $easterHolidays = [
     'friday' => 'Veľký piatok',
     'monday' => 'Veľkonočný pondelok'
-    ];
-
-    /**
-     * @var array
-     */
-    private static $oneOffHolidays = [
-    '2018-10-30' => '100. výročie prijatia Deklarácie slovenského národa'
     ];
 
     /**
@@ -72,15 +67,26 @@ class Holidays
         ];
 
         foreach (self::$fixedHolidays as $key => $holiday) {
-            $holidays[$year . '-' . $key] = $holiday;
-        }
-
-        foreach (self::$oneOffHolidays as $key => $holiday) {
-            $date = date_parse($key);
-
-            if ($date['year'] === $year) {
-                $holidays[$key] = $holiday;
+            $split = explode("-", $key);
+            if(count($split) == 2){
+                $holidays[$year . '-' . $key] = $holiday;
+            }else{
+                $key = $split[1] . "-" . $split[2];
+                $comparator = preg_replace('/[\d]/', '$1', $split[0]);
+                $_year = preg_replace('/[=<>]/', '$1', $split[0]);
+                if(($comparator === "" || $comparator === "=") && $year == $_year){
+                    $holidays[$year . '-' . $key] = $holiday;
+                }elseif($comparator === "<" && $year < $_year){
+                    $holidays[$year . '-' . $key] = $holiday;
+                }elseif($comparator === "<=" && $year <= $_year){
+                    $holidays[$year . '-' . $key] = $holiday;
+                }elseif($comparator === ">" && $year > $_year){
+                    $holidays[$year . '-' . $key] = $holiday;
+                }elseif($comparator === ">=" && $year >= $_year){
+                    $holidays[$year . '-' . $key] = $holiday;
+                }
             }
+
         }
 
         ksort($holidays);
