@@ -12,17 +12,17 @@ class Holidays
     '01-06' => 'Zjavenie Pána (Traja králi)',
 
     '05-01' => 'Sviatok práce',
-    '05-08' => 'Deň víťazstva nad fašizmom',
+    '<2025-05-08' => 'Deň víťazstva nad fašizmom',
 
     '07-05' => 'Sviatok svätého Cyrila a Metoda',
 
     '08-29' => 'Výročie SNP',
 
     '<2024-09-01' => 'Deň Ústavy Slovenskej republiky',
-    '09-15' => 'Sedembolestná Panna Mária',
+    '<2025-09-15' => 'Sedembolestná Panna Mária',
 
     '11-01' => 'Sviatok všetkých svätých',
-    '11-17' => 'Deň boja za slobodu a demokraciu',
+    '<2025-11-17' => 'Deň boja za slobodu a demokraciu',
 
     '12-24' => 'Štedrý deň',
     '12-25' => 'Prvý sviatok vianočný',
